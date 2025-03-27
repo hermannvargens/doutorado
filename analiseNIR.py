@@ -2,6 +2,8 @@ import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
+import joblib
+from sklearn.metrics import mean_squared_error, mean_absolute_error
 
 # Carregar os dados diretamente do GitHub
 url = "https://raw.githubusercontent.com/hermannvargens/doutorado/refs/heads/main/espectros_derivada.csv"
@@ -22,6 +24,9 @@ df = df.astype(float)
 # Separar os valores de absorbância
 df_espectros = df.iloc[:, 3:]
 df_espectros = df_espectros.T  # Transpor os dados
+
+# Carregar o modelo PLS treinado
+pls_mistura = joblib.load('pls_mistura_model.joblib')
 
 # Título do Streamlit
 st.title("Visualização de Espectros NIR")
@@ -53,3 +58,34 @@ if espectros_selecionados:
     st.pyplot(fig)
 else:
     st.write("Selecione pelo menos um espectro para visualizar.")
+
+# Seleção de amostra para predição
+df_teste = df.iloc[53:, :].reset_index(drop=True)
+
+# Opção de escolher a amostra para a predição
+linha = st.number_input("Escolha o número da amostra de 1 a 21:", min_value=1, max_value=21, value=1) - 1
+
+# Obter os dados da amostra
+X_new = df_teste.iloc[linha, 3:]
+X_new = X_new.values.reshape(1, -1)
+
+y_new = df_teste.iloc[linha, 0:3]
+y_new = y_new.values.reshape(1, -1)
+
+# Realizar a predição
+y_pred_new = pls_mistura.predict(X_new)
+
+# Calcular RMSE e MAE
+rmse = np.sqrt(mean_squared_error(y_new, y_pred_new))
+mae = mean_absolute_error(y_new, y_pred_new)
+
+# Calcular os erros em porcentagem
+rmse_percent = (rmse / np.mean(y_new)) * 100
+mae_percent = (mae / np.mean(y_new)) * 100
+
+# Exibir resultados
+st.subheader("Resultados da Predição")
+st.write(f"Predição: {y_pred_new[0]}")
+st.write(f"Valores reais: {y_new[0]}")
+st.write(f"RMSE (%): {rmse_percent:.6f}%")
+st.write(f"MAE (%): {mae_percent:.6f}%")
