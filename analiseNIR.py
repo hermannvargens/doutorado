@@ -28,7 +28,14 @@ st.title("Visualização de Espectros NIR")
 
 # Opção de selecionar os espectros
 espectros_disponiveis = df_espectros.columns.tolist()
-espectros_selecionados = st.multiselect("Escolha os espectros para visualizar:", espectros_disponiveis)
+
+# Adicionar opção de visualizar todos os espectros
+visualizar_todos = st.checkbox("Visualizar todos os espectros")
+
+if visualizar_todos:
+    espectros_selecionados = espectros_disponiveis
+else:
+    espectros_selecionados = st.multiselect("Escolha os espectros para visualizar:", espectros_disponiveis)
 
 # Plotar os espectros selecionados
 if espectros_selecionados:
