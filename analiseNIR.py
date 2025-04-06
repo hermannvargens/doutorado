@@ -43,13 +43,27 @@ if uploaded_file is not None:
     # Selecionar variáveis independentes (assumindo que as 3 primeiras colunas são alvos)
     X = df
 
-    # Exibir gráfico do espectro (apenas da primeira linha como exemplo)
-    st.subheader("Gráfico do Espectro (Amostra 1)")
-    fig, ax = plt.subplots()
-    ax.plot(X.columns.astype(float), X.iloc[0], marker='o')
-    ax.set_xlabel('Comprimento de onda (nm)')
-    ax.set_ylabel('Absorbância')
-    ax.set_title('Espectro NIR - Primeira Amostra')
+    # Plotar espectro no Streamlit
+    st.subheader("Gráfico do Espectro ")
+    
+    step = 5
+    x_values = np.arange(0, len(df.columns), step)
+    x_labels = [str(i) for i in range(0, len(df.columns), step)]
+    
+    fig, ax = plt.subplots(figsize=(10, 6))
+    ax.plot(df.iloc[0, :])  # Primeiro espectro
+    
+    ax.set_xticks(x_values)
+    ax.set_xticklabels(x_labels, rotation=45, ha="right")
+    
+    ax.grid(True)
+    ax.set_title("Espectro")
+    ax.set_xlabel("Absorvância")
+    ax.set_ylabel("Wavelength (nm)")
+    
+    plt.tight_layout()
+    
+    # Exibir o gráfico no Streamlit
     st.pyplot(fig)
 
     # Verificar compatibilidade com o modelo
