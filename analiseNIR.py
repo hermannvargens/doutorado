@@ -39,12 +39,3 @@ if uploaded_file is not None:
     # Exibir as previsões
     st.write("Previsões feitas pelo modelo:")
     st.write(y_pred)
-
-    # Passo 5: Exibir os resultados em um gráfico de dispersão
-    result_df = pd.DataFrame(y_pred, columns=["Previsão"])
-    st.write("Resultados das Previsões:")
-    st.write(result_df)
-
-    # (Opcional) Você pode adicionar um gráfico para visualizar as previsões
-    st.subheader('Gráfico de Previsões')
-    st.line_chart(result_df)
