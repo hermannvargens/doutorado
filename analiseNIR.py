@@ -38,4 +38,4 @@ if uploaded_file is not None:
 
     # Exibir as previsões
     st.write("Previsões feitas pelo modelo:")
-    st.write(y)
+    st.write(y_pred)
