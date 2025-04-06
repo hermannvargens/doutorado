@@ -7,8 +7,9 @@ import matplotlib.pyplot as plt
 # Função para carregar o modelo PLS salvo
 @st.cache_resource
 def load_model():
-    pls = joblib.load('pls.pkl')  # Substitua com o caminho correto se necessário
-    return pls
+    #model = joblib.load('pls.pkl')  # Substitua com o caminho correto se necessário
+    model = joblib.load('knn.pkl')
+    return model
 
 # Função para processar o arquivo CSV com o mesmo pré-processamento usado no Jupyter
 def process_csv(file):
@@ -29,7 +30,7 @@ def process_csv(file):
 st.title('Previsões com PLS Regression')
 
 # Carregar o modelo PLS
-pls = load_model()
+model = load_model()
 
 # Upload do arquivo CSV
 uploaded_file = st.file_uploader("Carregue o arquivo CSV com os dados de entrada", type=["csv"])
@@ -67,11 +68,11 @@ if uploaded_file is not None:
     st.pyplot(fig)
 
     # Verificar compatibilidade com o modelo
-    if X.shape[1] != pls.estimators_[0].x_weights_.shape[0]:
+    if X.shape[1] != model.estimators_[0].x_weights_.shape[0]:
         st.error(f"O número de colunas ({X.shape[1]}) não é compatível com o modelo treinado ({pls.estimators_[0].x_weights_.shape[0]}).")
     else:
         # Fazer previsões com o modelo
-        y_pred = pls.predict(X)
+        y_pred = model.predict(X)
 
         # Exibir previsões
         st.subheader("Previsões feitas pelo modelo (xÁgua, xEtanol, xDEC):")
