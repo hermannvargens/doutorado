@@ -38,7 +38,4 @@ if uploaded_file is not None:
 
     # Exibir as previsões
     st.write("Previsões feitas pelo modelo:")
-    st.write(
-    f"Composição de Água: {y_pred[0][0]:.2%}\n"
-    f"Composição de Etanol: {y_pred[0][1]:.2%}\n"
-    f"Composição de DEC: {y_pred[0][2]:.2%}")
+    st.write(y)
