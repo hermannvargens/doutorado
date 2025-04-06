@@ -11,7 +11,7 @@ def load_model():
 
 # Função para processar o arquivo CSV com o mesmo pré-processamento usado no Jupyter
 def process_csv(file):
-    df = pd.read_csv(file, delimiter=";")
+    df = pd.read_csv(file)
     
     # Corrigir nomes das colunas (virgula para ponto e remover ponto extra)
     df.columns = [col.replace('.', '').replace(',', '.') for col in df.columns]
