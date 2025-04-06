@@ -27,11 +27,11 @@ if uploaded_file is not None:
     # Passo 2: Processar o arquivo CSV
     df = process_csv(uploaded_file)
     st.write("Dados carregados:")
-    st.write(df.head())  # Exibe as primeiras linhas dos dados carregados
+    st.write(df)  # Exibe as primeiras linhas dos dados carregados
 
     # Passo 3: Selecione as variáveis de entrada (X) e, se disponível, o alvo (y)
     # Supondo que o arquivo tenha colunas para predição e as variáveis X de forma geral:
-    X = df.values  # Aqui, estamos assumindo que todas as colunas são variáveis independentes para a previsão.
+    X = df # Aqui, estamos assumindo que todas as colunas são variáveis independentes para a previsão.
 
     # Passo 4: Fazer previsões com o modelo
     y_pred = pls.predict(X)
