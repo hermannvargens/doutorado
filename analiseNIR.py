@@ -40,7 +40,7 @@ if uploaded_file is not None:
     st.write(df)
 
     # Selecionar variáveis independentes (assumindo que as 3 primeiras colunas são alvos)
-    X = df.iloc[:, 3:]
+    X = df
 
     # Verificar se o número de colunas bate com o modelo
     if X.shape[1] != pls.estimators_[0].x_weights_.shape[0]:
