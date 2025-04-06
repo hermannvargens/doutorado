@@ -2,6 +2,7 @@ import streamlit as st
 import joblib
 import pandas as pd
 import numpy as np
+import matplotlib.pyplot as plt
 
 # Função para carregar o modelo PLS salvo
 @st.cache_resource
@@ -42,7 +43,16 @@ if uploaded_file is not None:
     # Selecionar variáveis independentes (assumindo que as 3 primeiras colunas são alvos)
     X = df
 
-    # Verificar se o número de colunas bate com o modelo
+    # Exibir gráfico do espectro (apenas da primeira linha como exemplo)
+    st.subheader("Gráfico do Espectro (Amostra 1)")
+    fig, ax = plt.subplots()
+    ax.plot(X.columns.astype(float), X.iloc[0], marker='o')
+    ax.set_xlabel('Comprimento de onda (nm)')
+    ax.set_ylabel('Absorbância')
+    ax.set_title('Espectro NIR - Primeira Amostra')
+    st.pyplot(fig)
+
+    # Verificar compatibilidade com o modelo
     if X.shape[1] != pls.estimators_[0].x_weights_.shape[0]:
         st.error(f"O número de colunas ({X.shape[1]}) não é compatível com o modelo treinado ({pls.estimators_[0].x_weights_.shape[0]}).")
     else:
@@ -50,5 +60,5 @@ if uploaded_file is not None:
         y_pred = pls.predict(X)
 
         # Exibir previsões
-        st.write("Previsões feitas pelo modelo (xÁgua, xEtanol, xDEC):")
+        st.subheader("Previsões feitas pelo modelo (xÁgua, xEtanol, xDEC):")
         st.dataframe(pd.DataFrame(y_pred, columns=['xAgua_pred', 'xEtanol_pred', 'xDEC_pred']))
