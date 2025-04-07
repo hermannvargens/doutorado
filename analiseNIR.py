@@ -71,7 +71,7 @@ if uploaded_file is not None:
     # Fazer previsões com o modelo
     y_pred = model.predict(X)
 
-    y_pred[0]
+    y_pred[0][0]
 
     # Exibir previsões
     st.subheader("Previsões feitas pelo modelo (xÁgua, xEtanol, xDEC):")
