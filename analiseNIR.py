@@ -51,7 +51,7 @@ if uploaded_file is not None:
     x_labels = [str(i) for i in range(0, len(df.columns), step)]
     
     fig, ax = plt.subplots(figsize=(10, 6))
-    ax.plot(df.iloc[0, :])  # Primeiro espectro
+    ax.plot(df.iloc[0, :])
     
     ax.set_xticks(x_values)
     ax.set_xticklabels(x_labels, rotation=45, ha="right")
@@ -73,4 +73,9 @@ if uploaded_file is not None:
 
     # Exibir previsões
     st.subheader("Previsões feitas pelo modelo (xÁgua, xEtanol, xDEC):")
+    st.write(
+    f"Composição de Água: {y[0][0]:.2%}, \n"
+    f"Composição de Etanol:{ y[0][1]:.2%}, \n"
+    f"Composição de DEC: {y[0][2]:.2%}"
+)
     st.dataframe(pd.DataFrame(y_pred, columns=['xAgua_pred', 'xEtanol_pred', 'xDEC_pred']))
