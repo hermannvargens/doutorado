@@ -41,8 +41,7 @@ if uploaded_file is not None:
     st.write("Dados carregados:")
     st.write(df)
 
-    # Selecionar variáveis independentes (assumindo que as 3 primeiras colunas são alvos)
-    X = df
+    X = df.values
 
     # Plotar espectro no Streamlit
     st.subheader("Gráfico do Espectro ")
@@ -67,13 +66,11 @@ if uploaded_file is not None:
     # Exibir o gráfico no Streamlit
     st.pyplot(fig)
 
-    # Verificar compatibilidade com o modelo
-    if X.shape[1] != model.estimators_[0].x_weights_.shape[0]:
-        st.error(f"O número de colunas ({X.shape[1]}) não é compatível com o modelo treinado ({pls.estimators_[0].x_weights_.shape[0]}).")
-    else:
-        # Fazer previsões com o modelo
-        y_pred = model.predict(X)
+    st.write(df.shape)
 
-        # Exibir previsões
-        st.subheader("Previsões feitas pelo modelo (xÁgua, xEtanol, xDEC):")
-        st.dataframe(pd.DataFrame(y_pred, columns=['xAgua_pred', 'xEtanol_pred', 'xDEC_pred']))
+    # Fazer previsões com o modelo
+    y_pred = model.predict(X)
+
+    # Exibir previsões
+    st.subheader("Previsões feitas pelo modelo (xÁgua, xEtanol, xDEC):")
+    st.dataframe(pd.DataFrame(y_pred, columns=['xAgua_pred', 'xEtanol_pred', 'xDEC_pred']))
