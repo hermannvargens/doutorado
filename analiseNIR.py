@@ -73,5 +73,5 @@ if uploaded_file is not None:
 
      # Exibir previsões
     st.subheader("Previsões feitas pelo modelo (xÁgua, xEtanol, xDEC):")
-    st.write(f"Composição de Água: {y[0][0]:.2%})
+    st.write("Composição de Água: {y[0][0]:.2%})
     st.dataframe(pd.DataFrame(y_pred, columns=['xAgua_pred', 'xEtanol_pred', 'xDEC_pred']))
