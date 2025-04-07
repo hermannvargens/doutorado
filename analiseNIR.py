@@ -7,8 +7,8 @@ import matplotlib.pyplot as plt
 # Função para carregar o modelo PLS salvo
 @st.cache_resource
 def load_model():
-    #model = joblib.load('pls.pkl')  # Substitua com o caminho correto se necessário
-    model = joblib.load('knn.pkl')
+    model = joblib.load('pls.pkl')  # Substitua com o caminho correto se necessário
+    #model = joblib.load('knn.pkl')
     return model
 
 # Função para processar o arquivo CSV com o mesmo pré-processamento usado no Jupyter
