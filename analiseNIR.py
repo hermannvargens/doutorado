@@ -66,8 +66,6 @@ if uploaded_file is not None:
     # Exibir o gráfico no Streamlit
     st.pyplot(fig)
 
-    st.write(df.shape)
-
     # Fazer previsões com o modelo
     y_pred = model.predict(X)
 
