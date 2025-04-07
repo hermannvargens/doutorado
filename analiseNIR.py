@@ -8,8 +8,8 @@ import matplotlib.pyplot as plt
 @st.cache_resource
 def load_model():
     #model = joblib.load('pls.pkl')  # Substitua com o caminho correto se necessário
-    model = joblib.load('knn.pkl')
-    #model = joblib.load('rf.pkl')
+    #model = joblib.load('knn.pkl')
+    model = joblib.load('rf.pkl')
     return model
 
 # Função para processar o arquivo CSV com o mesmo pré-processamento usado no Jupyter
